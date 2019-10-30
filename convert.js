@@ -57,16 +57,19 @@ let form = document.getElementById("convertForm");
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  var csv = document.getElementById('doc-input').files[0];
-  console.log(csv);
+  var output = document.getElementById('output');
+  output.innerHTML = "";
+
+  var csvInput = document.getElementById('doc-input').files[0];
+  console.log(csvInput);
 
   var toRemove = ["DOB", "Country", "Fax", "Pager", "Note", "Custom"];
 
-  confirmCorrectFileType(csv)
+  confirmCorrectFileType(csvInput)
     .then((res) => {
       convertFile(res, toRemove)
     })
     .catch((err) => {
-      console.log(err);
+      alert(err);
     })
 })
