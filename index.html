@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0 auto;
+      height: 100vh;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    header {
+      text-align: center;
+    }
+
+    form {
+      width: 60vw;
+    }
+
+    fieldset {
+      display: flex;
+      flex-direction: column;
+    }
+
+    fieldset>* {
+      margin-top: 1rem;
+    }
+
+    #output {
+      width: 70vw;
+      margin: 2vh 0 0 0;
+      box-shadow: 1px 0 8px rgb(36, 35, 35);
+      overflow: auto;
+      padding: 5px 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Migrate CSV to MongoDB</h1>
+    <span>Made for the Veteran's Outreach Center Rochester for Data Migration</span>
+  </header>
+  <main>
+    <form action="" name="convert" id="convertForm">
+      <fieldset>
+        <legend>Upload Your File</legend>
+        <label for="document">
+          <input type="file" name="document" id="doc-input">
+        </label>
+        <div>
+          <input type="submit"></input>
+          <input type="reset"></input>
+        </div>
+      </fieldset>
+    </form>
+    <div>
+      <h3>Output:</h3>
+      <div id="output"></div>
+    </div>
+  </main>
+  <script src="convert.js"></script>
+</body>
+
+</html>
