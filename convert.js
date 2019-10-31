@@ -8,11 +8,18 @@ function confirmCorrectFileType(csv) {
   })
 }
 
+function toCamelCase(label) {
+  
+  return label.replace(/(?:^.|[A-Z]|\b.)/g, function(letter, index) {
+    return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
+  }).replace(/\s+/g, '');
+}
+
 function convertFile(f, toRemove) {
   if (f) {
     var r = new FileReader();
     r.onload = function (e) {
-      let finalBatch=[];
+      let finalBatch = [];
       var contents = e.target.result;
       const lines = contents.split('\n');
       const headers = lines[0].split(',');
@@ -27,30 +34,21 @@ function convertFile(f, toRemove) {
         let result = lines[i].split(",");
         result.forEach((e, i) => {
           if (headersToKeep.includes(i)) {
-            let label = headers[i];
-            dataObject[label]=e;
+            let label = toCamelCase(headers[i]);
+            dataObject[label] = e;
           }
         })
         finalBatch.push(dataObject);
       }
       var outputDOM = document.getElementById('output');
-      outputDOM.innerHTML = JSON.stringify(finalBatch);
+      outputDOM.innerHTML = JSON.stringify(finalBatch[0]);
       console.log(finalBatch);
       return finalBatch;
-      
+
     }
-    /* for (var i = 0; i < lines.length; i++) {
-         output.push("<tr><td>" + lines[i].split(",").join("</td><td>") + "</td></tr>");
-       }
-       output = "<table>" + output.join("") + "</table>";
-       var outputDOM = document.getElementById('output');
-       outputDOM.innerHTML = output;
-     }*/
     r.readAsText(f);
   }
 }
-
-
 
 let form = document.getElementById("convertForm");
 
