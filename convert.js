@@ -1,4 +1,3 @@
-
 function confirmCorrectFileType(csv) {
   return new Promise((resolve, reject) => {
     if (csv.name.substr(name.length - 3) === "csv") {
@@ -9,8 +8,7 @@ function confirmCorrectFileType(csv) {
 }
 
 function toCamelCase(label) {
-  
-  return label.replace(/(?:^.|[A-Z]|\b.)/g, function(letter, index) {
+  return label.replace(/(?:^.|[A-Z]|\b.)/g, function (letter, index) {
     return index == 0 ? letter.toLowerCase() : letter.toUpperCase();
   }).replace(/\s+/g, '');
 }
@@ -44,30 +42,34 @@ function convertFile(f, toRemove) {
       outputDOM.innerHTML = JSON.stringify(finalBatch[0]);
       console.log(finalBatch);
       return finalBatch;
-
     }
     r.readAsText(f);
   }
 }
 
-let form = document.getElementById("convertForm");
 
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
+function createEventListeners() {
+  let form = document.getElementById("convertForm");
 
-  var output = document.getElementById('output');
-  output.innerHTML = "";
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-  var csvInput = document.getElementById('doc-input').files[0];
-  console.log(csvInput);
+    var output = document.getElementById('output');
+    output.innerHTML = "";
 
-  var toRemove = ["DOB", "Country", "Fax", "Pager", "Note", "Custom"];
+    var csvInput = document.getElementById('doc-input').files[0];
+    console.log(csvInput);
 
-  confirmCorrectFileType(csvInput)
-    .then((res) => {
-      convertFile(res, toRemove)
-    })
-    .catch((err) => {
-      alert(err);
-    })
-})
+    var toRemove = ["DOB", "Country", "Fax", "Pager", "Note", "Custom"];
+
+    confirmCorrectFileType(csvInput)
+      .then((res) => {
+        convertFile(res, toRemove)
+      })
+      .catch((err) => {
+        alert(err);
+      })
+  })
+}
+
+createEventListeners();
